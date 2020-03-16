@@ -11,7 +11,7 @@ from core import models as core_models
 class AbstractItem(core_models.TimeStampedModel):
     """ Abstract Item Model Definition """
 
-    # name = models.CharField(max_length=80)
+    name = models.CharField(max_length=80)
 
     class Meta:
         abstract = True
@@ -48,12 +48,12 @@ class HouseRule(AbstractItem):
         verbose_name = "House Rule"
 
 
-class Photo(AbstractItem):
+class Photo(core_models.TimeStampedModel):
     """ Photo Model Definition """
 
     caption = models.CharField(max_length=80)
-    file = models.ImageField()
-    room = models.ForeignKey("Room", on_delete=models.CASCADE)
+    file = models.ImageField(upload_to="room_photos")
+    room = models.ForeignKey("Room", related_name="photos", on_delete=models.CASCADE)
 
     def __str__(self):
         return self.caption
