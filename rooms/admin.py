@@ -18,9 +18,17 @@ class ItemAdmin(admin.ModelAdmin):
         return obj.rooms.count()
 
 
+class PhotoInLine(admin.TabularInline):
+    """ Photo Inline Definition """
+
+    model = models.Photo
+
+
 @admin.register(models.Room)
 class RoomAdmin(admin.ModelAdmin):
     """ Room Admin Definition """
+
+    inlines = (PhotoInLine,)
 
     fieldsets = (
         (
@@ -73,6 +81,8 @@ class RoomAdmin(admin.ModelAdmin):
         "facilities",
         "house_rules",
     )
+
+    raw_id_fields = ("host",)
 
     def count_amenities(self, obj):
         return obj.amenities.count()
