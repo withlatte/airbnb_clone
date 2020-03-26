@@ -38,6 +38,11 @@ class Command(BaseCommand):
                 "baths": lambda x: random.randint(1, 10),
             },
         )
+
+        amenities = room_models.Amenity.objects.all()
+        facilities = room_models.Facility.objects.all()
+        rules = room_models.HouseRule.objects.all()
+
         created_photos = seeder.execute()
         created_clean = flatten(list(created_photos.values()))
         for pk in created_clean:
@@ -48,4 +53,19 @@ class Command(BaseCommand):
                     room=room,
                     file=f"room_photos/{random.randint(1, 31)}.webp",
                 )
+            for a in amenities:
+                magic_number = random.randint(0, 15)
+                if magic_number % 2 == 0:
+                    room.amenities.add(a)
+
+            for a in facilities:
+                magic_number = random.randint(0, 15)
+                if magic_number % 2 == 0:
+                    room.facilities.add(a)
+
+            for a in rules:
+                magic_number = random.randint(0, 15)
+                if magic_number % 2 == 0:
+                    room.house_rules.add(a)
+
         self.stdout.write(self.style.SUCCESS(f"{number} rooms created successfully!"))
