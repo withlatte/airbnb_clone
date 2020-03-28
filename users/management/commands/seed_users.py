@@ -22,4 +22,6 @@ class Command(BaseCommand):
         )
         seeder.execute()
 
-        self.stdout.write(self.style.SUCCESS(f"{number} users created successfully!"))
+        self.stdout.write(
+            self.style.SUCCESS(f"{number} users are created successfully!")
+        )

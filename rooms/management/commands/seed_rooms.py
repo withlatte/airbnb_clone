@@ -20,6 +20,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         number = options.get("number")
         seeder = Seed.seeder()
+
         all_user = user_models.User.objects.all()
         room_types = room_models.RoomType.objects.all()
 
@@ -39,12 +40,9 @@ class Command(BaseCommand):
             },
         )
 
-        amenities = room_models.Amenity.objects.all()
-        facilities = room_models.Facility.objects.all()
-        rules = room_models.HouseRule.objects.all()
-
         created_photos = seeder.execute()
         created_clean = flatten(list(created_photos.values()))
+
         for pk in created_clean:
             room = room_models.Room.objects.get(pk=pk)
             for i in range(3, random.randint(10, 17)):
@@ -53,6 +51,11 @@ class Command(BaseCommand):
                     room=room,
                     file=f"room_photos/{random.randint(1, 31)}.webp",
                 )
+
+            amenities = room_models.Amenity.objects.all()
+            facilities = room_models.Facility.objects.all()
+            rules = room_models.HouseRule.objects.all()
+
             for a in amenities:
                 magic_number = random.randint(0, 15)
                 if magic_number % 2 == 0:
