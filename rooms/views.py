@@ -1,8 +1,12 @@
-from django.shortcuts import render
-from . import models as room_models
+from django.views.generic import ListView
+from . import models
 
 
-# Create your views here.
-def show_rooms(request):
-    room_model = room_models.Room.objects.all()
-    return render(request, "rooms/home.html", context={"room_model": room_model},)
+class HomeView(ListView):
+    """ Home View Definition """
+
+    model = models.Room
+    paginate_by = 10
+    paginate_orphans = 5
+    ordering = "created"
+    context_object_name = "rooms"
