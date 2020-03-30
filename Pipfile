@@ -12,6 +12,7 @@ pillow = "*"
 pylint = "*"
 django-countries = "*"
 django-seed = "*"
+render = "*"
 
 [requires]
 python_version = "3.7"

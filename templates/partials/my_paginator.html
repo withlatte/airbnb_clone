@@ -1,0 +1,19 @@
+<h5>
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">prev </a> &nbsp:&nbsp
+    {% else %}prev &nbsp:&nbsp
+    {% endif %}
+
+    {% for p in page_obj.paginator.page_range %}
+        {% if page_obj.number is p %}
+            {{ p }}
+        {% else %}
+            <a href="?page={{ p }}">{{ p }}</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+        &nbsp:&nbsp <a href="?page={{ page_obj.next_page_number }}">next</a>
+    {% else %}&nbsp:&nbsp next
+    {% endif %}
+</h5>
