@@ -22,6 +22,12 @@ def room_detail(request, pk):
         raise Http404
 
 
+def search(request):
+    city = request.GET.get("city")
+    city = str.capitalize(city)
+    return render(request, "rooms/search.html", {"city": city})
+
+
 """ 
 >> Using Class Room Detail
     (rooms/url.py) urlpatterns = [path("<int:pk>", views.RoomDetail.as_view(), name="detail")]
