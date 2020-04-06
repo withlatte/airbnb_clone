@@ -72,8 +72,10 @@ class SearchView(View):
                 if super_host is True:
                     filter_args["host__super_host"] = True
 
-                filter_args["amenities"] = amenities
-                filter_args["facilities"] = facilities
+                for amenity in amenities:
+                    filter_args["amenities"] = amenity
+                for facility in facilities:
+                    filter_args["facilities"] = facility
                 # for amenity in amenities:
                 #     filter_args["amenities"] = amenity
                 #

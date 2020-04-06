@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block page_title %}LOGIN{% endblock %}
+
+
+{% block content %}
+    {% block search-bar %}{% endblock search-bar %}
+    <h3>Login</h3>
+    <form method="POST" action="{% url "users:login" %}">
+
+        <h3>{% csrf_token %}{{ form.as_p }}</h3>
+        <button>LOGIN</button>
+    </form>
+    {% include "partials/my_paginator.html" %}
+{% endblock %}
