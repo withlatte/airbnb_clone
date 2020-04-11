@@ -13,6 +13,7 @@ django-countries = "*"
 django-seed = "*"
 render = "*"
 django-dotenv = "==1.4.2"
+requests = "*"
 
 [requires]
 python_version = "3.7"
