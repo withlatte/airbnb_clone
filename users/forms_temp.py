@@ -21,17 +21,18 @@ class LoginForm(forms.Form):
 
 
 class SignUpForm(UserCreationForm):
-    username = forms.EmailField(label="Email")
+    # username = forms.EmailField(label="Email")
+    username = forms.CharField(widget=forms.EmailInput)
 
-    class Meta:
-        model = models.User
-        fields = ("username",)
-        # field_classes = {"username": UsernameField}
-
-    def save(self, *args, **kwargs):
-        user = super().save(commit=False)
-        email = self.cleaned_data.get("username")
-        password = self.cleaned_data.get("password2")
-        user.username = email
-        user.set_password(password)
-        user.save()
+    # class Meta:
+    #     model = models.User
+    #     fields = ("username",)
+    #     # field_classes = {"username": UsernameField}
+    #
+    # def save(self, *args, **kwargs):
+    #     user = super().save(commit=False)
+    #     email = self.cleaned_data.get("username")
+    #     password = self.cleaned_data.get("password2")
+    #     user.username = email
+    #     user.set_password(password)
+    #     user.save()

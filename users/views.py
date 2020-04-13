@@ -34,13 +34,14 @@ class SignUpView(FormView):
 
     def form_valid(self, form):
         form.save()
-        # print(form.cleaned_data)
-        email = form.cleaned_data.get("email")  # todo email >> username
-        password = form.cleaned_data.get("password")  # todo password >> password2
+        email = form.cleaned_data.get("username")  # todo email >> username
+        password = form.cleaned_data.get("password2")  # todo password >> password2
         user = authenticate(self.request, username=email, password=password)
         if user is not None:
             login(self.request, user)
-        # print(email, password, user)  # todo print
+        if user.email == "":  # todo add email field same as username
+            user.email = email
+            user.save()
         user.verify_email()
         return super().form_valid(form)
 
