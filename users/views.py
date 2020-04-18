@@ -41,7 +41,6 @@ class SignUpView(FormView):
             login(self.request, user)
         if user.email == "":  # todo add email field same as username
             user.email = email
-            user.save()
         user.verify_email()
         return super().form_valid(form)
 

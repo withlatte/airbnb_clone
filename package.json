@@ -1,0 +1,23 @@
+{
+  "name": "airbnb_clone2",
+  "version": "1.0.0",
+  "description": "TailWind CSS for Airbnb Clone by Pbnb",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/withlatte/airbnb_clone.git"
+  },
+  "author": "Janghyun Park",
+  "homepage": "https://github.com/withlatte/airbnb_clone#readme",
+  "scripts": {
+    "css": "gulp"
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.7.6",
+    "gulp": "^4.0.2",
+    "gulp-csso": "^4.0.1",
+    "gulp-postcss": "^8.0.0",
+    "gulp-sass": "^4.0.2",
+    "node-sass": "^4.13.1",
+    "tailwindcss": "^1.2.0"
+  }
+}
