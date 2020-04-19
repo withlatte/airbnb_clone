@@ -4,14 +4,14 @@
 {% endblock %}
 {% block content %}
 
-    <div class="container mx-auto">
+    <div class="container mx-auto pb-10">
 
         <div class="-mx-40 rounded-xl bg-gray-800 h-50vh mt-32 mb-24 bg-cover bg-bottom"
              style="background-image: url(https://images.unsplash.com/photo-1504973522169-4705c9741e0f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2706&q=80)"></div>
 
-        <div class="flex flex-wrap  -mx-40">
+        <div class="flex flex-wrap  -mx-40 mb-10">
             {% for room in rooms %}
-                {% include "partials/room_card.html" with room=room %}
+                {% include "mixins/room_card.html" with room=room %}
             {% endfor %}
         </div>
 
