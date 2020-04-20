@@ -38,4 +38,43 @@ form {
   }
 }
 
+@keyframes messageFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-25px);
+  }
+  5% {
+    opacity: 1;
+    transform: translateY(25px);
+  }
+  95% {
+    opacity: 1;
+    transform: translateY(25px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-25px);
+  }
+}
+
+.message {
+  animation: messageFadeIn 5s ease-in-out forwards;
+
+  &.error {
+    @apply bg-red-200
+    }
+
+  &.success {
+    @apply bg-blue-200
+    }
+
+  &.info {
+    @apply bg-green-400
+    }
+
+  &.warning {
+    @apply bg-yellow-300
+    }
+}
+
 @tailwind utilities;
