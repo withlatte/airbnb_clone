@@ -98,23 +98,3 @@ class SearchView(View):
             form = forms.SearchForm()
 
         return render(request, "rooms/search.html", {"form": form},)
-
-
-""" 
->> Using Class Room Detail
-    (rooms/url.py) urlpatterns = [path("<int:pk>", views.RoomDetail.as_view(), name="detail")]
-
-    from django.views.generic import DetailView
-
-    class RoomDetail(Detail.View):
-        model = models.Room
-        
-        
-def room_detail(request, pk):
-    try:
-        room = models.Room.objects.get(pk=pk)
-        return render(request, "rooms/room_detail.html", {"room": room})
-    except models.Room.DoesNotExist:
-        raise Http404
-
-"""
