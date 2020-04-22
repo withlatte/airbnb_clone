@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from . import models
 
 
@@ -44,3 +44,34 @@ class SignUpForm(UserCreationForm):
             "last_name": forms.TextInput(attrs={"placeholder": "Last Name"}),
             "username": forms.EmailInput(attrs={"placeholder": "Email Address"}),
         }
+
+
+class UpdatePasswordForm(PasswordChangeForm):
+    """ Update Password Form Definition """
+
+    old_password = forms.CharField(
+        widget=forms.PasswordInput(attrs={"placeholder": "Old Password"})
+    )
+    new_password1 = forms.CharField(
+        widget=forms.PasswordInput(attrs={"placeholder": "New Password"})
+    )
+    new_password2 = forms.CharField(
+        widget=forms.PasswordInput(attrs={"placeholder": "Confirm New Password"})
+    )
+
+
+class UpdateProfileForm(forms.ModelForm):
+    avatar = forms.ImageField(required=False, widget=forms.FileInput)
+
+    class Meta:
+        model = models.User
+        fields = [
+            "first_name",
+            "last_name",
+            "avatar",
+            "gender",
+            "bio",
+            "birthdate",
+            "language",
+            "currency",
+        ]

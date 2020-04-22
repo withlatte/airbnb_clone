@@ -24,8 +24,22 @@
   @apply text-center py-3 rounded-lg font-light text-lg w-full text-white bg-red-400;
 }
 
-input {
+input,
+textarea {
   @apply w-full font-medium rounded text-center py-5 text-left border border-gray-700 px-5;
+  &:focus {
+    @apply outline-none bg-teal-200;
+  }
+}
+
+textarea {
+  resize: none;
+  height: 100px;
+}
+
+select {
+  @apply w-full font-medium rounded text-center text-left border border-gray-700 px-5;
+  height: 50px;
 }
 
 form {
