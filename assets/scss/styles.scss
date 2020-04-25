@@ -88,11 +88,16 @@ form {
 
   &.info {
     @apply bg-green-400 w-auto;
-    }
+  }
 
   &.warning {
     @apply bg-yellow-400 w-auto;
-    }
+  }
 }
+
+.border-section {
+  @apply border-b border-gray-400 pb-8 mb-8;
+}
+
 
 @tailwind utilities;
