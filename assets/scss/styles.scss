@@ -79,19 +79,19 @@ form {
   animation: messageFadeIn 5s ease-in-out forwards;
 
   &.error {
-    @apply bg-red-200;
+    @apply bg-red-500 w-auto;
     }
 
   &.success {
-    @apply bg-blue-200;
+    @apply bg-indigo-400 w-auto;
     }
 
   &.info {
-    @apply bg-green-400;
+    @apply bg-green-400 w-auto;
     }
 
   &.warning {
-    @apply bg-yellow-300;
+    @apply bg-yellow-400 w-auto;
     }
 }
 

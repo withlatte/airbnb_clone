@@ -50,7 +50,7 @@ class UpdatePasswordForm(PasswordChangeForm):
     """ Update Password Form Definition """
 
     old_password = forms.CharField(
-        widget=forms.PasswordInput(attrs={"placeholder": "Old Password"})
+        widget=forms.PasswordInput(attrs={"placeholder": "Current Password"})
     )
     new_password1 = forms.CharField(
         widget=forms.PasswordInput(attrs={"placeholder": "New Password"})
@@ -61,7 +61,9 @@ class UpdatePasswordForm(PasswordChangeForm):
 
 
 class UpdateProfileForm(forms.ModelForm):
-    avatar = forms.ImageField(required=False, widget=forms.FileInput)
+    avatar = forms.ImageField(
+        required=False, widget=forms.FileInput, label="Upload Profile Image"
+    )
 
     class Meta:
         model = models.User
@@ -75,3 +77,9 @@ class UpdateProfileForm(forms.ModelForm):
             "language",
             "currency",
         ]
+        widgets = {
+            "first_name": forms.TextInput(attrs={"placeholder": "First Name"}),
+            "last_name": forms.TextInput(attrs={"placeholder": "Last Name"}),
+            "bio": forms.Textarea(attrs={"placeholder": "Biography"}),
+            "birthdate": forms.DateInput(attrs={"placeholder": "yyyy-mm-dd"}),
+        }

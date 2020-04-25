@@ -10,14 +10,14 @@
 
         {% include "mixins/auth/auth_form.html" with form=form cta="UPDATE PROFILE" %}
 
-        {% if object.login_method == "email" %}
-            <div class="mt-5 justify-between w-full flex">
-                <a href="{% url "users:profile" user.pk %}" class="font-medium mr-2">CANCEL</a>
-                <a href="{% url "users:password" %}" class="text-teal-500 font-medium mr-2">
+        <div class="mt-5 justify-between w-full flex">
+            <a href="{% url "users:profile" user.pk %}" class="font-medium mr-2 hover:underline">CANCEL</a>
+            {% if object.login_method == "email" %}
+                <a href="{% url "users:password" %}" class="text-teal-500 font-medium mr-2 hover:underline">
                     CHANGE PASSWORD
                 </a>
-            </div>
-        {% endif %}
+            {% endif %}
+        </div>
     </div>
 
 {% endblock content %}

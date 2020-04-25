@@ -7,13 +7,15 @@ from django.shortcuts import redirect, reverse
 from django.contrib.auth import authenticate, login, logout
 from django.core.files.base import ContentFile
 from django.contrib import messages
-from . import forms, models
+from django.contrib.messages.views import SuccessMessageMixin
+from . import forms, models, mixins
 
 
-class LoginView(FormView):
+class LoginView(mixins.LoggedOutOnlyView, FormView):
     template_name = "users/login.html"
     form_class = forms.LoginForm
-    success_url = reverse_lazy("core:home")
+
+    # success_url = reverse_lazy("core:home")
 
     def form_valid(self, form):
         email = form.cleaned_data.get("email")
@@ -24,6 +26,13 @@ class LoginView(FormView):
             messages.success(self.request, f"Welcome back {user.first_name}!")
         return super().form_valid(form)
 
+    def get_success_url(self):
+        next_arg = self.request.GET.get("next")
+        if next_arg is not None:
+            return next_arg
+        else:
+            return reverse("core:home")
+
 
 def log_out(request):
     messages.info(request, f"Good Bye {request.user.first_name}!")
@@ -31,7 +40,7 @@ def log_out(request):
     return redirect(reverse("users:login"))
 
 
-class SignUpView(FormView):
+class SignUpView(mixins.LoggedOutOnlyView, FormView):
     template_name = "users/signup.html"
     form_class = forms.SignUpForm
     success_url = reverse_lazy("core:home")
@@ -222,19 +231,30 @@ class UserProfileView(DetailView):
         return context
 
 
-class UpdateProfileView(UpdateView):
+class UpdateProfileView(mixins.LoggedInOnlyView, SuccessMessageMixin, UpdateView):
     """ Update Profile View Definition """
 
     model = models.User
     form_class = forms.UpdateProfileForm
     template_name = "users/update-profile.html"
+    success_message = "Profile updated."
 
     def get_object(self, queryset=None):
         return self.request.user
 
 
-class UpdatePasswordView(PasswordChangeView):
+class UpdatePasswordView(
+    mixins.LoggedInOnlyView,
+    mixins.EmailLoginOnlyView,
+    SuccessMessageMixin,
+    PasswordChangeView,
+):
     """ Change Password View Definition """
 
     template_name = "users/update-password.html"
     form_class = forms.UpdatePasswordForm
+    success_message = "Password Updated"
+
+    def get_success_url(self):
+        # return reverse(self.request.user.get_absolute_url())   --> 니꼴라스 코드 오류발생함
+        return reverse("users:profile", kwargs={"pk": self.request.user.pk})
