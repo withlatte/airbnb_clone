@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block page_title %}UPDATE ROOM{% endblock %}
+
+{% block search-bar %}{% endblock search-bar %}
+
+{% block content %}
+
+    <div class="container w-4/12 lg:w-5/12 md:w-1/2 xl:w-1/4 mx-auto my-16 flex flex-col items-center border p-6 border-gray-400">
+
+        {% include "mixins/room/room_form.html" with form=form cta="UPDATE ROOM" %}
+
+        <div class="mt-5 items-center justify-center w-full flex">
+            <a href="{% url "rooms:detail" room.pk %}" class="font-medium mr-2 hover:underline">CANCEL</a>
+        </div>
+    </div>
+
+{% endblock content %}
