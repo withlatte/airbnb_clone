@@ -10,8 +10,11 @@
 
         {% include "mixins/room/room_form.html" with form=form cta="UPDATE ROOM" %}
 
-        <div class="mt-5 items-center justify-center w-full flex">
+        <div class="mt-5 justify-between w-full flex">
             <a href="{% url "rooms:detail" room.pk %}" class="font-medium mr-2 hover:underline">CANCEL</a>
+            <a href="{% url "rooms:photos" room.pk %}" class="text-teal-500 font-medium mr-2 hover:underline">
+                EDIT PHOTO
+            </a>
         </div>
     </div>
 

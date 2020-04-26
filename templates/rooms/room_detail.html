@@ -75,7 +75,9 @@
                                 </a>
                             </div>
                             <div class="font-medium ml-8 flex flex-col">
-                                <span class="font-semibold">{{ review.user.first_name }}</span>
+                                <a href="{{ review.user.get_absolute_url }}">
+                                    <span class="font-semibold hover:underline">{{ review.user.first_name }}</span>
+                                </a>
                                 <span>{{ review.updated|date:'F Y' }}</span>
                             </div>
                         </div>
