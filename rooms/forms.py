@@ -30,3 +30,18 @@ class SearchForm(forms.Form):
         required=False,
         widget=forms.CheckboxSelectMultiple,
     )
+
+
+class CreatePhotoForm(forms.ModelForm):
+    class Meta:
+        model = models.Photo
+        fields = ("caption", "file")
+
+    # 방 사진을 업로드 하려면 로그인 사용자 ROOM 의 pk 값을 찾아
+    # 그 ROOM 에 사진을 추가하기 위해 save 메쏘드에 commit False 옵션을
+    # 사용하여 오버라이드 했다.
+    def save(self, pk, *args, **kwargs):
+        photo = super().save(commit=False)
+        room = models.Room.objects.get(pk=pk)
+        photo.room = room
+        photo.save()

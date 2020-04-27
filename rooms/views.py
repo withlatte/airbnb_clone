@@ -1,9 +1,10 @@
 from django.http import Http404
-from django.views.generic import ListView, DetailView, View, UpdateView
+from django.views.generic import ListView, DetailView, View, UpdateView, FormView
 from django.shortcuts import render, redirect, reverse
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 from users import mixins as user_mixins
 from . import models, forms
 
@@ -167,3 +168,34 @@ def delete_photo(request, room_pk, photo_pk):
         return redirect(reverse("rooms:photos", kwargs={"pk": room_pk}))
     except models.Room.DoesNotExist:
         return redirect(reverse("core:home"))
+
+
+class EditPhotoView(user_mixins.LoggedInOnlyView, SuccessMessageMixin, UpdateView):
+    """ Edit Photo View Definition """
+
+    model = models.Photo
+    template_name = "rooms/photo_edit.html"
+    pk_url_kwarg = "photo_pk"
+    success_message = "Photo has been edited successfully"
+    fields = ("caption",)
+
+    def get_success_url(self):
+        room_pk = self.kwargs.get("room_pk")
+        return reverse("rooms:photos", kwargs={"pk": room_pk})
+
+
+class AddPhotoView(user_mixins.LoggedInOnlyView, FormView):
+    """ Add Photo View Definition """
+
+    model = models.Photo
+    template_name = "rooms/photo_create.html"
+    form_class = forms.CreatePhotoForm
+
+    # 너무 어렵다 진짜!
+    # CreatePhotoForm 클래스에 save() 메쏘드를 오버라이드 하면서 필요한
+    # pk 값을 보내기 위해 아래의  form_valid 를 오버라이드 했다고 하네.
+    def form_valid(self, form):
+        pk = self.kwargs.get("pk")
+        form.save(pk)
+        messages.success(self.request, "Photo has been added successfully")
+        return redirect(reverse("rooms:photos", kwargs={"pk": pk}))
