@@ -1,5 +1,6 @@
 import os
 import requests
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import PasswordChangeView
 from django.views.generic import FormView, DetailView, UpdateView
 from django.urls import reverse_lazy
@@ -258,3 +259,12 @@ class UpdatePasswordView(
     def get_success_url(self):
         # return reverse(self.request.user.get_absolute_url())   --> 니꼴라스 코드 오류발생함
         return reverse("users:profile", kwargs={"pk": self.request.user.pk})
+
+
+@login_required
+def switch_hosting(request):
+    try:
+        del request.session["is_hosting"]
+    except KeyError:
+        request.session["is_hosting"] = True
+    return redirect(reverse("core:home"))

@@ -191,9 +191,15 @@ class AddPhotoView(user_mixins.LoggedInOnlyView, FormView):
     template_name = "rooms/photo_create.html"
     form_class = forms.CreatePhotoForm
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["room_pk"] = self.kwargs.get("pk")
+
+        return context
+
     # 너무 어렵다 진짜!
     # CreatePhotoForm 클래스에 save() 메쏘드를 오버라이드 하면서 필요한
-    # pk 값을 보내기 위해 아래의  form_valid 를 오버라이드 했다고 하네.
+    # pk 값을 보내기 위해 아래의  form_valid 를 오버라이드 한다고 하네.
     def form_valid(self, form):
         pk = self.kwargs.get("pk")
         form.save(pk)

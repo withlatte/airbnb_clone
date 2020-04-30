@@ -11,7 +11,7 @@
         {% include "mixins/room/room_form.html" with form=form cta="UPDATE PHOTO" %}
 
         <div class="mt-5 justify-center w-full flex">
-            <a href="{% url 'rooms:edit' object.room.pk %}" class="font-medium mr-2 hover:underline">BACK TO PHOTO</a>
+            <a href="{% url 'rooms:photos' object.room.pk %}" class="font-medium mr-2 hover:underline">BACK TO PHOTO</a>
         </div>
     </div>
 
