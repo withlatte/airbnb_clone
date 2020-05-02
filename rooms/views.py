@@ -205,3 +205,22 @@ class AddPhotoView(user_mixins.LoggedInOnlyView, FormView):
         form.save(pk)
         messages.success(self.request, "Photo has been added successfully")
         return redirect(reverse("rooms:photos", kwargs={"pk": pk}))
+
+
+class CreateRoomView(user_mixins.LoggedInOnlyView, FormView):
+    """ Upload Room View Definition """
+
+    form_class = forms.CreateRoomForm
+    template_name = "rooms/room_create.html"
+
+    def form_valid(self, form):
+        room = form.save()
+        room.host = self.request.user
+        room.save()
+        # Many To Many 필드데이타를 저장하기 위해서는 save_m2m() 을 사용해야하며,
+        # 폼에서 commit=false 옵션사용 시, save_m2m() 사용 순서에 유의해야 한다.
+        # save_m2m() 은 데이터베이스에 다른 필드들이 저장된 후에 실행되어야 한다.
+        # 즉, room.save() 실행 이후, form.save_m2m() 실행
+        form.save_m2m()
+        messages.success(self.request, "Room has been created successfully")
+        return redirect(reverse("rooms:detail", kwargs={"pk": room.pk}))

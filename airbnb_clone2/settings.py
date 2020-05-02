@@ -143,3 +143,7 @@ EMAIL_FROM = "verification@sandbox854bdb1802df49a9b2c3ff66127d6155.mailgun.org"
 # Auth
 
 LOGIN_URL = "users/login/"
+
+# Defaults
+
+NO_FIRST_ROOM_PHOTO = os.path.join(MEDIA_URL, "etc/No_image_available.svg")
