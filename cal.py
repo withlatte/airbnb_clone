@@ -1,5 +1,16 @@
 import calendar
 
+from django.utils import timezone
+
+
+class Day:
+    def __init__(self, number, past):
+        self.number = number
+        self.past = past
+
+    def __str__(self):
+        return str(self.number)
+
 
 class Calendar(calendar.Calendar):
     def __init__(self, year, month):
@@ -26,11 +37,15 @@ class Calendar(calendar.Calendar):
 
     def get_days(self):
         weeks = self.monthdays2calendar(self.year, self.month)
+        now = timezone.now()
+        today = now.day
+
         days = []
         for week in weeks:
-            # for day, _ in week: 라고 표현할 수도 있다. _ 는 week_day 값이 무엇이든 사용하지 않을 것이다하는 의미.
+            # for day, _ in week: 라고 표현할 수도 있다. _ 는 week_day 값이 무엇이든 사용하지 않을 것이다라는 의미.
             for day, week_day in week:
-                days.append(day)
+                new_day = Day(day, day <= today)
+                days.append(new_day)
         return days
 
     def get_month(self):

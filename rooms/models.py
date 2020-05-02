@@ -1,12 +1,9 @@
-# pylint: disable=missing-module-docstring
-# pylint: disable=missing-class-docstring
-# pylint: disable=missing-function-docstring
-
 from django.db import models
 from django.urls import reverse
 from django.conf import settings
 from django_countries.fields import CountryField
 from core import models as core_models
+from django.utils import timezone
 from cal import Calendar
 
 
@@ -120,7 +117,14 @@ class Room(core_models.TimeStampedModel):
         return photos
 
     def get_calendars(self):
-        this_month = Calendar(2020, 5)
-        next_month = Calendar(2020, 6)
+        year = timezone.now().year
+        this_month = timezone.now().month
+        next_month = this_month + 1
 
-        return [this_month, next_month]
+        cal_this_month = Calendar(year, this_month)
+        if this_month == 12:
+            year += 1
+            next_month = 1
+        cal_next_month = Calendar(year, next_month)
+
+        return [cal_this_month, cal_next_month]
