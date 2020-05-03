@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load ch_capitals %}
 {% block page_title %}
     Detail
 {% endblock %}
@@ -91,6 +92,7 @@
             {% if room.host == user %}
                 <a href="{% url "rooms:edit" room.pk %}" class="btn-link block">EDIT ROOM</a>
             {% else %}
+                {{ "monochrome"|ch_capitals }}
                 {% if not request.session.is_hosting %}
                     {% for calendar in room.get_calendars %}
                         <div class="mb-20">
@@ -105,7 +107,8 @@
                             <div class="cal-grid">
                                 {% for get_day in calendar.get_days %}
                                     {% if get_day.number != 0 %}
-                                        {% if get_day.past and forloop.parentloop.first %}
+                                        {% now "n" as current_month %}
+                                        {% if get_day.past and calendar.month|slugify == current_month %}
                                             <span class="bg-gray-200 text-center text-gray-400 w-full rounded py-1">
                                             {{ get_day }}</span>
                                         {% else %}

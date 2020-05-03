@@ -42,7 +42,8 @@ class Calendar(calendar.Calendar):
 
         days = []
         for week in weeks:
-            # for day, _ in week: 라고 표현할 수도 있다. _ 는 week_day 값이 무엇이든 사용하지 않을 것이다라는 의미.
+            # for day, _ in week: 라고 표현할 수도 있다.
+            # _ 는 week_day 값이 무엇이든 사용하지 않을 것이다라는 의미. null 처럼 사용
             for day, week_day in week:
                 new_day = Day(day, day <= today)
                 days.append(new_day)
