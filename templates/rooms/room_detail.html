@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load ch_capitals %}
+{% load is_booked %}
 {% block page_title %}
     Detail
 {% endblock %}
@@ -92,7 +92,6 @@
             {% if room.host == user %}
                 <a href="{% url "rooms:edit" room.pk %}" class="btn-link block">EDIT ROOM</a>
             {% else %}
-                {{ "monochrome"|ch_capitals }}
                 {% if not request.session.is_hosting %}
                     {% for calendar in room.get_calendars %}
                         <div class="mb-20">
@@ -106,10 +105,15 @@
                             </div>
                             <div class="cal-grid">
                                 {% for get_day in calendar.get_days %}
+                                    {% is_booked room get_day as is_booked_bool %}
                                     {% if get_day.number != 0 %}
                                         {% now "n" as current_month %}
                                         {% if get_day.past and calendar.month|slugify == current_month %}
                                             <span class="bg-gray-200 text-center text-gray-400 w-full rounded py-1">
+                                            {{ get_day }}</span>
+                                        {% elif is_booked_bool %}
+                                            <span class="bg-gray-200 text-center text-gray-600 w-full rounded py-1 line-through"
+                                                  title="booked already">
                                             {{ get_day }}</span>
                                         {% else %}
                                             <span class="bg-gray-200 text-center w-full rounded py-1 hover:bg-indigo-400 hover:text-white hover:font-semibold cursor-pointer">
