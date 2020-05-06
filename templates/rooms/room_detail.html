@@ -5,8 +5,9 @@
 {% endblock %}
 {% block content %}
 
-    <div class="container max-w-full h-75vh mb-20 flex -mt-5">
-        <div class="h-full w-1/2 bg-cover bg-center" style="background-image: url({{ room.first_photo }})"></div>
+    <div class="container max-w-full h-75vh mb-20 flex -mt-5 border border-gray-700">
+        <div class="h-full w-1/2 bg-cover bg-center border border-gray-700"
+             style="background-image: url({{ room.first_photo }})"></div>
         <div class="h-full w-1/2 flex flex-wrap">
             {% for photo in room.get_next_four_photos %}
                 <div style="background-image: url({{ photo.file.url }})"
@@ -112,12 +113,13 @@
                                             <span class="bg-gray-200 text-center text-gray-400 w-full rounded py-1">
                                             {{ get_day }}</span>
                                         {% elif is_booked_bool %}
-                                            <span class="bg-gray-200 text-center text-gray-600 w-full rounded py-1 line-through"
+                                            <span class="bg-gray-200 font-semibold text-center text-indigo-600 w-full rounded py-1"
                                                   title="booked already">
                                             {{ get_day }}</span>
                                         {% else %}
-                                            <span class="bg-gray-200 text-center w-full rounded py-1 hover:bg-indigo-400 hover:text-white hover:font-semibold cursor-pointer">
-                                            {{ get_day }}</span>
+                                            <a href="{% url 'reservations:create' room.pk get_day.year get_day.month get_day.number %}"
+                                               class="bg-gray-200 text-center w-full rounded py-1 hover:bg-indigo-400 hover:text-white hover:font-semibold cursor-pointer">
+                                                {{ get_day }}</a>
                                         {% endif %}
 
                                     {% else %}
