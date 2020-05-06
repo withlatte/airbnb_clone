@@ -61,10 +61,11 @@ def edit_reservation(request, pk, verb):
         raise Http404()
     if verb == "confirmed":
         reservation.status = models.Reservation.STATUS_CONFIRMED
+        reservation.save()
+        return redirect(reverse("reservations:detail", kwargs={"pk": reservation.pk}))
     elif verb == "canceled":
-        reservation.status = models.Reservation.STATUS_CANCELED
+        reservation.delete()
+        messages.success(request, f"Your reservation has been canceled")
+        return redirect(reverse("rooms:detail", kwargs={"pk": reservation.room.pk}))
 
-    reservation.save()
     messages.success(request, f"Your reservation has been {verb}")
-
-    return redirect(reverse("reservations:detail", kwargs={"pk": reservation.pk}))
