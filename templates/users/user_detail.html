@@ -26,9 +26,31 @@
             {% endif %}
 
         </div>
+
+        {% if user_obj.pk == user.pk %}
+
+            {% if user_obj.reservations.count > 0 %}
+                <div class="container mx-auto items-center flex flex-col pb-10">
+                <h3 class="mb-12 text-2xl">{{ user_obj.first_name }}'s
+                    Reservation{{ user_obj.reservations.count|pluralize }}</h3>
+                <div class="container mx-auto flex flex-col  -mx-40 mb-10">
+                    {% for book in user_obj.reservations.all %}
+                        <a href="{% url 'reservations:detail' book.pk %}" class="mb-5 mr-2">
+                            {{ forloop.counter }}. Check in : {{ book.check_in }} | Check out : {{ book.check_out }} |
+                            Room name : {{ book.room.name }}
+                        </a>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="container mx-auto items-center flex flex-col pb-10">
+                    <h3 class="mb-12 text-2xl">{{ user_obj.first_name }} doesn't have any reservation yet.</h3>
+                </div>
+            {% endif %}
+        {% endif %}
+
         {% if user_obj.rooms.count > 0 %}
             <div class="container mx-auto items-center flex flex-col pb-10">
-            <h3 class="mb-12 text-2xl">{{ user_obj.first_name }}'s Rooms</h3>
+            <h3 class="mb-12 text-2xl">{{ user_obj.first_name }}'s Room{{ user_obj.rooms.count|pluralize }}</h3>
             <div class="container mx-auto items-center flex flex-wrap  -mx-40 mb-10">
                 {% for room in user_obj.rooms.all %}
                     {% include "mixins/room_card.html" with room=room %}
@@ -39,6 +61,5 @@
                 <h3 class="mb-12 text-2xl">{{ user_obj.first_name }} doesn't have any room yet.</h3>
             </div>
         {% endif %}
-
         </div>
 {% endblock content %}

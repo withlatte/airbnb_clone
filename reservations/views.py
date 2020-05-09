@@ -4,6 +4,7 @@ from django.views.generic import View
 from django.http import Http404
 from rooms import models as room_models
 from django.contrib import messages
+from reviews import forms as review_forms
 from . import models
 
 
@@ -29,7 +30,14 @@ def create(request, room, year, month, day):
             check_in=date_obj,
             check_out=date_obj + datetime.timedelta(days=1),
         )
-        return redirect(reverse("reservations:detail", kwargs={"pk": reservation.pk}))
+
+        if reservation.pk is not None:
+            return redirect(
+                reverse("reservations:detail", kwargs={"pk": reservation.pk})
+            )
+        else:
+            messages.error(request, "Can't make reservation on this room")
+            return redirect(reverse("rooms:detail", kwargs={"pk": reservation.room.pk}))
 
 
 class ReservationDetailView(View):
@@ -45,10 +53,11 @@ class ReservationDetailView(View):
             and reservation.room.host != self.request.user
         ):
             raise Http404()
+        form = review_forms.CreateReviewForm()
         return render(
             request=self.request,
             template_name="reservations/detail.html",
-            context={"reservation": reservation},
+            context={"reservation": reservation, "form": form},
         )
 
 

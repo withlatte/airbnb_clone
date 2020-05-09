@@ -34,18 +34,40 @@
                 </div>
             </div>
 
-            <div class="py-10 px-5">
-                {% if reservation.status == 'pending' %}
-                    <a href="{% url 'reservations:edit' reservation.pk 'canceled' %}" class="btn-link block px-3 mb-5">Cancel
-                        Reservation</a>
-                    {% if reservation.room.host == user %}
-                        <a href="{% url 'reservations:edit' reservation.pk 'confirmed' %}" class="btn-link block px-3">Confirm
-                            Reservation</a>
+            <span class="font-semibold text-lg text-center w-full block mt-5">Write Your Review</span>
+
+            <div class="py-10 px-5 flex">
+                {% if reservation.status != "canceled" %}
+                    {% if reservation.status == "confirmed" and reservation.is_finished %}
+                        <form action="{% url 'reviews:create' reservation.room.pk %}" method="post"
+                              class="w-1/2 mx-auto">
+                            {% csrf_token %}
+                            {{ form }}
+                            <button class="btn-link mt-5">SUBMIT REVIEW</button>
+                        </form>
+
+                    {% else %}
+                        {% if reservation.status == 'pending' %}
+                            <a href="{% url 'reservations:edit' reservation.pk 'canceled' %}"
+                               class="btn-link block px-3 mb-5 mr-5 w-56">Cancel
+                                Reservation</a>
+                            {% if reservation.room.host == user %}
+                                <a href="{% url 'reservations:edit' reservation.pk 'confirmed' %}"
+                                   class="btn-link block px-3 mb-5 mr-5 w-56 bg-indigo-400">Confirm
+                                    Reservation</a>
+                            {% endif %}
+                        {% endif %}
                     {% endif %}
+
                 {% endif %}
             </div>
-        </div>
 
+            <div class="container mx-auto flex justify-center">
+                <a href="{% url "rooms:detail" reservation.room.pk %}"
+                   class="btn-link block px-3 mb-5 bg-gray-500 w-56 items-center">BACK
+                    TO ROOM</a>
+            </div>
+        </div>
     </div>
 
 {% endblock content %}

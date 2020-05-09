@@ -1,3 +1,22 @@
+{% load i18n %}
+
 <footer class="container mx-auto text-center py-10 border-t font-medium text-gray-600">
-    &copy; 2020 Pbnb, Inc. All rights reserved.
+    <div class="flex flex-col">
+        &copy; 2020 Pbnb, Inc. {% trans 'All rights reserved.' %}
+    </div>
+    {% get_current_language as LANGUAGE_CODE %}
+    <select class="w-1/5 mt-5" id="js-lang">
+        <option value="en"
+                {% if LANGUAGE_CODE == 'en' %}
+                selected
+                {% endif %}
+        >English
+        </option>
+        <option value="es"
+                {% if LANGUAGE_CODE == 'es' %}
+                selected
+                {% endif %}
+        >Spanish
+        </option>
+    </select>
 </footer>

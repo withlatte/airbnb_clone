@@ -1,7 +1,10 @@
 import os
 import requests
+from django.utils import translation
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import PasswordChangeView
+from django.http import HttpResponse
 from django.views.generic import FormView, DetailView, UpdateView
 from django.urls import reverse_lazy
 from django.shortcuts import redirect, reverse
@@ -228,7 +231,8 @@ class UserProfileView(DetailView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["hello"] = "Hello! Aloha! Pagi!"
+
+        context["hello"] = "hello"
         return context
 
 
@@ -268,3 +272,11 @@ def switch_hosting(request):
     except KeyError:
         request.session["is_hosting"] = True
     return redirect(reverse("core:home"))
+
+
+def switch_language(request):
+    lang = request.GET.get("lang", None)
+    translation.activate(lang)
+    response = HttpResponse(status=200)
+    response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang)
+    return response

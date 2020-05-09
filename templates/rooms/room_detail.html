@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load is_booked %}
+{% load is_booked on_favs %}
 {% block page_title %}
     Detail
 {% endblock %}
@@ -27,6 +27,16 @@
                     <span class="mt-2 text-gray-700 font-light">{{ room.host.first_name }}</span>
                 </a>
             </div>
+            {% on_favs room as on_favs_boolean %}
+            {% if on_favs_boolean %}
+                <a href="{% url 'lists:toggle-room' room.pk %}?action=remove" class="btn-link block my-10 bg-gray-500">
+                    REMOVE FROM FAVORITE
+                </a>
+            {% else %}
+                <a href="{% url 'lists:toggle-room' room.pk %}?action=add" class="btn-link block my-10 bg-indigo-400">
+                    ADD TO FAVORITE
+                </a>
+            {% endif %}
             <div class="flex border-section">
                 <span class="mr-3 font-light">{{ room.roomtype }}</span>
                 <span class="mr-3 font-light">{{ room.beds }} bed{{ room.beds|pluralize }}</span>
@@ -83,7 +93,7 @@
                                 <span>{{ review.updated|date:'F Y' }}</span>
                             </div>
                         </div>
-                        <p class="mt-10 border-section">{{ review }}</p>
+                        <p class="mt-10 border-section">{{ review.review }}</p>
                     {% endfor %}
 
                 </div>
@@ -92,6 +102,19 @@
         <div class="w-1/3">
             {% if room.host == user %}
                 <a href="{% url "rooms:edit" room.pk %}" class="btn-link block">EDIT ROOM</a>
+                {% if request.session.is_hosting %}
+                    <h3 class="mt-10 font-semibold border-section py-1 mb-0">CHECK RESERVATIONS</h3>
+                    <div class="container flex flex-col">
+                        {% for book in room.reservations.all %}
+                            <a href="{% url 'reservations:detail' book.pk %}" class="mt-3 hover:bg-gray-300 py-2">
+                                <div class="flex justify-between">
+                                    <span>{{ book.guest.first_name }} {{ book.guest.last_name }}</span>
+                                    <span>{{ book.check_in }}</span>
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             {% else %}
                 {% if not request.session.is_hosting %}
                     {% for calendar in room.get_calendars %}
