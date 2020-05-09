@@ -30,17 +30,18 @@
                 </div>
                 <div class="ml-5 flex flex-col">
                     <span class="font-medium mb-px">Contact your Airbnb Host</span>
-                    <a href="#" class="font-medium text-teal-500">Send a Message</a>
+                    <a href="{% url 'conversations:go' reservation.room.host.pk reservation.guest.pk %}"
+                       class="font-medium text-teal-500">Send a Message</a>
                 </div>
             </div>
 
-            <span class="font-semibold text-lg text-center w-full block mt-5">Write Your Review</span>
 
             <div class="py-10 px-5 flex">
                 {% if reservation.status != "canceled" %}
                     {% if reservation.status == "confirmed" and reservation.is_finished %}
                         <form action="{% url 'reviews:create' reservation.room.pk %}" method="post"
                               class="w-1/2 mx-auto">
+                            <span class="font-semibold text-lg text-center w-full block mt-5">Write Your Review</span>
                             {% csrf_token %}
                             {{ form }}
                             <button class="btn-link mt-5">SUBMIT REVIEW</button>
