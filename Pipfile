@@ -5,6 +5,7 @@ verify_ssl = true
 
 [dev-packages]
 awsebcli = "*"
+pipenv-to-requirements = "*"
 
 [packages]
 django = "*"
