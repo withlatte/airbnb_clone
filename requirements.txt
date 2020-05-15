@@ -28,7 +28,6 @@ lazy-object-proxy==1.4.3
 markupsafe==1.1.1
 mccabe==0.6.1
 pillow==7.1.2
-psycopg2==2.8
 pylint==2.5.2
 python-dateutil==2.8.1
 pytz==2020.1
