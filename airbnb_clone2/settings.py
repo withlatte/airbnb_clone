@@ -24,7 +24,12 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [".elasticbeanstalk.com", "localhost", "http://13.209.144.14"]
+ALLOWED_HOSTS = [
+    ".elasticbeanstalk.com",
+    "localhost",
+    "13.209.144.14",
+    "127.0.0.1",
+]
 
 # Application definition
 
