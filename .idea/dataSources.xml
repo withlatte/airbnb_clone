@@ -9,5 +9,13 @@
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:C:\Users\withl\PycharmProjects\airbnb_clone2\db.sqlite3</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="PostgreSQL - ebdb@aa10pae1qu3sdsq.cxbjidemycwm.ap-northeast-2.rds.amazonaws.com" uuid="0bea2b20-963f-4a76-af5a-cc5ee070339b">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <schema-control>AUTOMATIC</schema-control>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://aa10pae1qu3sdsq.cxbjidemycwm.ap-northeast-2.rds.amazonaws.com:5432/ebdb</jdbc-url>
+      <time-zone>Asia/Seoul</time-zone>
+    </data-source>
   </component>
 </project>
