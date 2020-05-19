@@ -9,11 +9,11 @@
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:C:\Users\withl\PycharmProjects\airbnb_clone2\db.sqlite3</jdbc-url>
     </data-source>
-    <data-source source="LOCAL" name="ebdb@aa16cr3wgaa53rb.cxbjidemycwm.ap-northeast-2.rds.amazonaws.com" uuid="6d7675f6-916e-43fc-93c6-994759278b00">
+    <data-source source="LOCAL" name="air_db@air.cxbjidemycwm.ap-northeast-2.rds.amazonaws.com" uuid="66b98e63-1088-450d-b35d-0225672a7aec">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://aa16cr3wgaa53rb.cxbjidemycwm.ap-northeast-2.rds.amazonaws.com:5432/ebdb</jdbc-url>
+      <jdbc-url>jdbc:postgresql://air.cxbjidemycwm.ap-northeast-2.rds.amazonaws.com:5432/air_db</jdbc-url>
     </data-source>
   </component>
 </project>
