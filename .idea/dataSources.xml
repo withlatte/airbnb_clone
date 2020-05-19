@@ -15,5 +15,11 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://air.cxbjidemycwm.ap-northeast-2.rds.amazonaws.com:5432/air_db</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="ebdb@aa3g4z9x9liwfd.cxbjidemycwm.ap-northeast-2.rds.amazonaws.com" uuid="dcf819de-55f9-4bdb-b27e-17d112a14701">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://aa3g4z9x9liwfd.cxbjidemycwm.ap-northeast-2.rds.amazonaws.com:5432/ebdb</jdbc-url>
+    </data-source>
   </component>
 </project>
