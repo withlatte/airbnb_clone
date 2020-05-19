@@ -19,6 +19,8 @@ django-dotenv = "==1.4.2"
 requests = "*"
 gunicorn = "*"
 sentry-sdk = "*"
+django-storages = "*"
+boto3 = "*"
 
 [requires]
 python_version = "3.7"
