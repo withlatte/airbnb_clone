@@ -166,10 +166,6 @@ LOGIN_URL = "users/login/"
 
 LOCALE_PATH = (os.path.join(BASE_DIR, "locale"),)
 
-# Defaults
-
-NO_FIRST_ROOM_PHOTO = os.path.join(MEDIA_URL, "etc/No_image_available.svg")
-
 # Sentry
 if not DEBUG:
     DEFAULT_FILE_STORAGE = "airbnb_clone2.custom_storages.UploadStorage"
@@ -183,7 +179,7 @@ if not DEBUG:
     AWS_AUTO_CREATE_BUCKET = True
 
     AWS_S3_CUSTOM_DOMAIN = (
-        f"{AWS_STORAGE_BUCKET_NAME}.{AWS_S3_REGION_NAME}.s3.amazonaws.com"
+        f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com"
     )
     STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/static/"
 
@@ -194,3 +190,6 @@ if not DEBUG:
         # django.contrib.auth) you may enable sending PII data.
         send_default_pii=True,
     )
+
+# Defaults
+NO_FIRST_ROOM_PHOTO = os.path.join(STATIC_URL, "No_image_available.svg")
