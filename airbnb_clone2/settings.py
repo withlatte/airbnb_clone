@@ -193,4 +193,4 @@ if not DEBUG:
     )
 
 # Defaults
-NO_FIRST_ROOM_PHOTO = os.path.join(STATIC_URL, "No_image_available.svg")
+NO_FIRST_ROOM_PHOTO = os.path.join(STATIC_URL, "img/No_image_available.svg")
